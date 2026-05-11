@@ -1,0 +1,24 @@
+{
+  "name": "pvote",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+    "scripts": {
+      "dev": "vite",
+      "build": "vite build",
+      "lint": "eslint .",
+      "preview": "vite preview"
+    },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roshanraiworks-tech/pulsevote.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/roshanraiworks-tech/pulsevote/issues"
+  },
+  "homepage": "https://github.com/roshanraiworks-tech/pulsevote#readme"
+}
