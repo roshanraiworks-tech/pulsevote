@@ -5,7 +5,6 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const privateKey = process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, "\n");
-console.log("FIREBASE KEY:", import.meta.env.VITE_FIREBASE_API_KEY);
 
 if (!process.env.FIREBASE_PROJECT_ID || !process.env.FIREBASE_CLIENT_EMAIL || !privateKey) {
     throw new Error(
