@@ -118,57 +118,7 @@ function CreatePoll () {
   //     setLoading(false)
   //   }
   // }
-    const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
-    setCreatedPoll(null);
-
-    if (!user) {
-      setError("Please login before creating a poll.");
-      return;
-    }
-
-    const cleanedOptions = options.map((item) => item.trim()).filter(Boolean);
-
-    if (!question.trim()) {
-      setError("Please enter a poll question.");
-      return;
-    }
-
-    if (cleanedOptions.length < 2) {
-      setError("Please add at least 2 valid options.");
-      return;
-    }
-
-    try {
-      setLoading(true);
-
-      if (!api || typeof api.post !== "function") {
-        throw new Error("API client is not configured correctly.");
-      }
-
-      const response = await api.post("/api/polls", {
-        question: question.trim(),
-        timer,
-        options: cleanedOptions,
-        creatorId: user.uid,
-        creatorEmail: user.email,
-        creatorName: user.displayName || "",
-      });
-
-      setCreatedPoll(response.data.data);
-      setQuestion("");
-      setTimer(30);
-      setOptions(["", ""]);
-    } catch (err) {
-      console.error("Create poll failed:", err);
-      setError(err?.response?.data?.message || err.message || "Failed to create poll.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // const handleSubmit = async (e) => {
+  //   const handleSubmit = async (e) => {
   //   e.preventDefault();
   //   setError("");
   //   setCreatedPoll(null);
@@ -193,19 +143,9 @@ function CreatePoll () {
   //   try {
   //     setLoading(true);
 
-  //     // const payload = {
-  //     //   question: question.trim(),
-  //     //   duration: {
-  //     //     days,
-  //     //     hours,
-  //     //     minutes,
-  //     //     seconds
-  //     //   },
-  //     //   options: cleanedOptions
-  //     // }
-
-  //     console.log("api:", api);
-  //     console.log("api.post:", api?.post);
+  //     if (!api || typeof api.post !== "function") {
+  //       throw new Error("API client is not configured correctly.");
+  //     }
 
   //     const response = await api.post("/api/polls", {
   //       question: question.trim(),
@@ -216,19 +156,79 @@ function CreatePoll () {
   //       creatorName: user.displayName || "",
   //     });
 
-  //     // const response = await api.post("/api/polls", payload);
-
   //     setCreatedPoll(response.data.data);
   //     setQuestion("");
-  //     timer(30);
+  //     setTimer(30);
   //     setOptions(["", ""]);
   //   } catch (err) {
   //     console.error("Create poll failed:", err);
-  //     setError(err?.response?.data?.message || "Failed to create poll.");
+  //     setError(err?.response?.data?.message || err.message || "Failed to create poll.");
   //   } finally {
   //     setLoading(false);
   //   }
   // };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    setCreatedPoll(null);
+
+    if (!user) {
+      setError("Please login before creating a poll.");
+      return;
+    }
+
+    const cleanedOptions = options.map((item) => item.trim()).filter(Boolean);
+
+    if (!question.trim()) {
+      setError("Please enter a poll question.");
+      return;
+    }
+
+    if (cleanedOptions.length < 2) {
+      setError("Please add at least 2 valid options.");
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      // const payload = {
+      //   question: question.trim(),
+      //   duration: {
+      //     days,
+      //     hours,
+      //     minutes,
+      //     seconds
+      //   },
+      //   options: cleanedOptions
+      // }
+
+      console.log("api:", api);
+      console.log("api.post:", api?.post);
+
+      const response = await api.post("/api/polls", {
+        question: question.trim(),
+        timer,
+        options: cleanedOptions,
+        creatorId: user.uid,
+        creatorEmail: user.email,
+        creatorName: user.displayName || "",
+      });
+
+      // const response = await api.post("/api/polls", payload);
+
+      setCreatedPoll(response.data.data);
+      setQuestion("");
+      timer(30);
+      setOptions(["", ""]);
+    } catch (err) {
+      console.error("Create poll failed:", err);
+      setError(err?.response?.data?.message || "Failed to create poll.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className='pv-page-shell pv-create-shell'>
