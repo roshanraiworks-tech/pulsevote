@@ -292,7 +292,7 @@ function CreatePoll () {
       setOptions(["", ""]);
     } catch (err) {
       console.error("Create poll failed:", err);
-      setError(err?.response?.data?.message || "Failed to create poll.");
+      // setError(err?.response?.data?.message || "Failed to create poll.");
     } finally {
       setLoading(false);
     }
