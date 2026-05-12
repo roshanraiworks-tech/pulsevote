@@ -11,7 +11,7 @@ import {
   Spinner
 } from 'react-bootstrap'
 
-import api from '../api'
+// import api from '../api'
 import { useAuth } from '../hooks/useAuth'
 import PollResultsBars from '../components/PollResultsBars'
 import '../styles/app.css'
@@ -168,67 +168,135 @@ function CreatePoll () {
   //   }
   // };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
-    setCreatedPoll(null);
+  const handleSubmit = async e => {
+    e.preventDefault()
+
+    if (loading) return
+
+    setError('')
+    setCreatedPoll(null)
 
     if (!user) {
-      setError("Please login before creating a poll.");
-      return;
+      setError('Please login before creating a poll.')
+      return
     }
 
-    const cleanedOptions = options.map((item) => item.trim()).filter(Boolean);
+    const cleanedOptions = options.map(item => item.trim()).filter(Boolean)
 
     if (!question.trim()) {
-      setError("Please enter a poll question.");
-      return;
+      setError('Please enter a poll question.')
+      return
     }
 
     if (cleanedOptions.length < 2) {
-      setError("Please add at least 2 valid options.");
-      return;
+      setError('Please add at least 2 valid options.')
+      return
     }
 
     try {
-      setLoading(true);
+      setLoading(true)
 
-      // const payload = {
-      //   question: question.trim(),
-      //   duration: {
-      //     days,
-      //     hours,
-      //     minutes,
-      //     seconds
-      //   },
-      //   options: cleanedOptions
-      // }
+      const response = await fetch(
+        `${
+          import.meta.env.VITE_SERVER_URL || 'http://localhost:5000'
+        }/api/polls`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            question: question.trim(),
+            timer,
+            options: cleanedOptions,
+            creatorId: user.uid,
+            creatorEmail: user.email,
+            creatorName: user.displayName || ''
+          })
+        }
+      )
 
-      console.log("api:", api);
-      console.log("api.post:", api?.post);
+      const data = await response.json()
 
-      const response = await api.post("/api/polls", {
-        question: question.trim(),
-        timer,
-        options: cleanedOptions,
-        creatorId: user.uid,
-        creatorEmail: user.email,
-        creatorName: user.displayName || "",
-      });
+      if (!response.ok) {
+        throw new Error(data?.message || 'Failed to create poll.')
+      }
 
-      // const response = await api.post("/api/polls", payload);
-
-      setCreatedPoll(response.data.data);
-      setQuestion("");
-      timer(30);
-      setOptions(["", ""]);
+      setError('')
+      setCreatedPoll(data.data)
+      setQuestion('')
+      setTimer(30)
+      setOptions(['', ''])
     } catch (err) {
-      console.error("Create poll failed:", err);
-      setError(err?.response?.data?.message || "Failed to create poll.");
+      console.error('Create poll failed:', err)
+      setCreatedPoll(null)
+      setError(err?.message || 'Failed to create poll.')
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   setError("");
+  //   setCreatedPoll(null);
+
+  //   if (!user) {
+  //     setError("Please login before creating a poll.");
+  //     return;
+  //   }
+
+  //   const cleanedOptions = options.map((item) => item.trim()).filter(Boolean);
+
+  //   if (!question.trim()) {
+  //     setError("Please enter a poll question.");
+  //     return;
+  //   }
+
+  //   if (cleanedOptions.length < 2) {
+  //     setError("Please add at least 2 valid options.");
+  //     return;
+  //   }
+
+  //   try {
+  //     setLoading(true);
+
+  //     // const payload = {
+  //     //   question: question.trim(),
+  //     //   duration: {
+  //     //     days,
+  //     //     hours,
+  //     //     minutes,
+  //     //     seconds
+  //     //   },
+  //     //   options: cleanedOptions
+  //     // }
+
+  //     console.log("api:", api);
+  //     console.log("api.post:", api?.post);
+
+  //     const response = await api.post("/api/polls", {
+  //       question: question.trim(),
+  //       timer,
+  //       options: cleanedOptions,
+  //       creatorId: user.uid,
+  //       creatorEmail: user.email,
+  //       creatorName: user.displayName || "",
+  //     });
+
+  //     // const response = await api.post("/api/polls", payload);
+
+  //     setCreatedPoll(response.data.data);
+  //     setQuestion("");
+  //     timer(30);
+  //     setOptions(["", ""]);
+  //   } catch (err) {
+  //     console.error("Create poll failed:", err);
+  //     setError(err?.response?.data?.message || "Failed to create poll.");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   return (
     <div className='pv-page-shell pv-create-shell'>
