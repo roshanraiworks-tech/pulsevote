@@ -8,7 +8,7 @@ import {
 } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
 
-import { auth } from "../config/firebase";
+import { auth } from "../firebase";
 import AuthLayout from "../components/AuthLayout";
 import "../styles/auth.css";
 

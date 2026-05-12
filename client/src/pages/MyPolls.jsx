@@ -10,9 +10,9 @@ import {
   Spinner
 } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import api from '../services/api'
+import api from '../api'
 import { useAuth } from '../hooks/useAuth'
-import socket from '../sockets/socket'
+import socket from '../socket'
 import PollResultsBars from '../components/PollResultsBars'
 import '../styles/app.css'
 

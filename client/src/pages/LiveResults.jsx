@@ -8,8 +8,8 @@ import {
   Spinner,
   Badge,
 } from "react-bootstrap";
-import api from "../services/api";
-import socket from "../sockets/socket";
+import api from "../api";
+import socket from "../socket";
 // import PollResultsBars from "../components/PollResultsBars";
 import "../styles/app.css";
 import PollResultsChart from "../components/PollResultsChart";

@@ -8,8 +8,8 @@ import {
   Button,
   Badge,
 } from "react-bootstrap";
-import api from "../services/api";
-import socket from "../sockets/socket";
+import api from "../api";
+import socket from "../socket";
 import { useAuth } from "../hooks/useAuth";
 import PollResultsBars from "../components/PollResultsBars";
 import "../styles/app.css";

@@ -11,7 +11,7 @@ import {
   Spinner
 } from 'react-bootstrap'
 
-import api from '../services/api'
+import api from '../api'
 import { useAuth } from '../hooks/useAuth'
 import PollResultsBars from '../components/PollResultsBars'
 import '../styles/app.css'

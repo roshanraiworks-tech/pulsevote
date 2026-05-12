@@ -8,7 +8,7 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 
-import { auth } from "../config/firebase";
+import { auth } from "../firebase";
 
 import { AuthContext } from "./authContext";
 
