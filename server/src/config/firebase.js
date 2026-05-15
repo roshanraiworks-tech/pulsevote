@@ -14,29 +14,9 @@ const firebaseConfig = {
     measurementId: "G-M09KD98KCY"
 };
 
-console.log("FIREBASE KEY:", import.meta.env.VITE_FIREBASE_API_KEY);
+console.log("FIREBASE KEY:", firebaseConfig.apiKey);
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-
-// const privateKey = process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, "\n");
-
-// if (!process.env.FIREBASE_PROJECT_ID || !process.env.FIREBASE_CLIENT_EMAIL || !privateKey) {
-//     throw new Error(
-//         "Missing Firebase Admin credentials. Check FIREBASE_PROJECT_ID, FIREBASE_CLIENT_EMAIL, and FIREBASE_PRIVATE_KEY."
-//     )
-// }
-
-// if (!getApps().length) {
-//     initializeApp({
-//         credential: cert({
-//             projectId: process.env.FIREBASE_PROJECT_ID,
-//             clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-//             privateKey,
-//         }),
-//     });
-// }
 
 export const db = getFirestore();
 export { FieldValue };

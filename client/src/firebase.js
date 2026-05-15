@@ -6,7 +6,7 @@ import {
 } from "firebase/auth";
 // import { getAuth } from 'firebase/auth'
 
-const rconst firebaseConfig = {
+const firebaseConfig = {
     apiKey: "AIzaSyBXL6Wo5gtrkxYu-NRcZyYy29n7fkU8qFM",
     authDomain: "pulsevote-117.firebaseapp.com",
     projectId: "pulsevote-117",
@@ -16,30 +16,12 @@ const rconst firebaseConfig = {
     measurementId: "G-M09KD98KCY"
 };
 
-// console.log("FIREBASE KEY:", import.meta.env.VITE_FIREBASE_API_KEY);
-
-// for (const key of requiredKeys) {
-//     if (!import.meta.env[key]) {
-//         throw new Error(`Missing environment variable: ${key}`);
-//     }
-// }
-
-// const firebaseConfig = {
-//   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-
-//   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-
-//   projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-
-//   storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-
-//   messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-
-//   appId: import.meta.env.VITE_FIREBASE_APP_ID,
-// };
+console.log("FIREBASE KEY:", import.meta.env.VITE_FIREBASE_API_KEY);
 
 const app = initializeApp(firebaseConfig)
+
 export const auth = getAuth(app)
+
 console.log("FIREBASE KEY:", import.meta.env.VITE_FIREBASE_API_KEY);
 setPersistence(auth, browserSessionPersistence)
     .then(() => {
